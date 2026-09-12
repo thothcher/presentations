@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="ka" class="scroll-smooth">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>პრეზენტაციები · frontend</title>
+<meta name="description" content="ლექციების სლაიდები frontend-ზე: HTML/CSS, JavaScript, Angular. ყველა პრეზენტაცია ერთ გვერდზე." />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2314171a'/%3E%3Crect x='6' y='7' width='20' height='13' fill='%23e7eae9'/%3E%3Crect x='13' y='22' width='6' height='3' fill='%231e33e0'/%3E%3C/svg%3E" />
+
+<!-- იგივე setup, რაც სლაიდებს აქვს: Tailwind v4 პირდაპირ ბრაუზერში, build step-ის გარეშე. -->
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Noto+Serif+Georgian:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style type="text/tailwindcss">
+  @theme {
+    --color-paper:   #e7eae9;
+    --color-panel:   #f3f5f4;
+    --color-ink:     #14171a;
+    --color-ink-2:   #4a5157;
+    --color-rule:    #c3cac9;
+    --color-live:    #1e33e0;
+    --color-box-c:   #a7c5e6;
+    --color-box-p:   #b9d8b0;
+    --color-box-m:   #f5c99b;
+    --font-display:  "Noto Serif Georgian", Georgia, serif;
+    --font-sans:     "Noto Sans Georgian", ui-sans-serif, system-ui, sans-serif;
+    --font-mono:     "IBM Plex Mono", "Noto Sans Georgian", ui-monospace, monospace;
+  }
+</style>
+
+<style>
+  /* ხელით დაწერილი CSS მხოლოდ იქ, სადაც წესი ბევრ უცნობ ელემენტს ეხება — ისევე, როგორც სლაიდებში. */
+  body {
+    background: #e7eae9; color: #14171a;
+    font-family: "Noto Sans Georgian", system-ui, sans-serif;
+  }
+  .display { font-family: "Noto Serif Georgian", Georgia, serif; letter-spacing: -0.02em; }
+  .grid-paper {
+    background-image: radial-gradient(#14171a12 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  ::selection { background: #1e33e04d; }
+  .card { animation: rise .22s ease-out both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .card { animation: none; } }
+  /* search input-ის ნაგულისხმევი "x" ღილაკი webkit-ში — Tailwind-ის utility მას ვერ წვდება. */
+  input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; }
+</style>
+</head>
+
+<body class="grid-paper antialiased text-ink">
+
+<!-- გადახვევის ინდიკატორი — იგივე 3px ზოლი, რაც სლაიდებზეა -->
+<div class="fixed inset-x-0 top-0 z-50 h-[3px] bg-rule/40">
+  <div id="bar" class="h-full w-0 bg-ink transition-[width] duration-150 ease-out"></div>
+</div>
+
+<!-- ═══ SVG სიმბოლოები: თითო თემას თავისი ნიშანი ═══ -->
+<svg width="0" height="0" class="absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-tw" viewBox="0 0 32 32">
+      <g transform="translate(0 6.2) scale(0.593)">
+        <path fill-rule="evenodd" clip-rule="evenodd" fill="#38BDF8" d="M27 0C19.8 0 15.3 3.6 13.5 10.8C16.2 7.2 19.35 5.85 22.95 6.75C25.004 7.263 26.472 8.754 28.097 10.403C30.744 13.09 33.808 16.2 40.5 16.2C47.7 16.2 52.2 12.6 54 5.4C51.3 9 48.15 10.35 44.55 9.45C42.496 8.937 41.028 7.446 39.403 5.797C36.756 3.11 33.692 0 27 0ZM13.5 16.2C6.3 16.2 1.8 19.8 0 27C2.7 23.4 5.85 22.05 9.45 22.95C11.504 23.464 12.972 24.954 14.597 26.603C17.244 29.29 20.308 32.4 27 32.4C34.2 32.4 38.7 28.8 40.5 21.6C37.8 25.2 34.65 26.55 31.05 25.65C28.996 25.137 27.528 23.646 25.903 21.997C23.256 19.31 20.192 16.2 13.5 16.2Z"/>
+      </g>
+    </symbol>
+    <symbol id="i-js" viewBox="0 0 32 32">
+      <rect width="32" height="32" fill="#F7DF1E"/>
+      <text x="28.5" y="27.5" text-anchor="end" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="14" font-weight="600" fill="#14171a">JS</text>
+    </symbol>
+    <symbol id="i-ng" viewBox="0 0 32 32">
+      <path fill="#DD0031" d="M16 2.2 2.9 6.9l2 17.3L16 30.8l11.1-6.6 2-17.3z"/>
+      <path fill="#C3002F" d="M16 2.2V30.8l11.1-6.6 2-17.3z"/>
+      <path fill="#fff" d="M16 8.2 8.4 25.2h2.8l1.5-3.8h6.6l1.5 3.8h2.8L16 8.2zm2.2 10.9h-4.4L16 13.8l2.2 5.3z"/>
+    </symbol>
+    <symbol id="i-git" viewBox="0 0 32 32">
+      <path fill="#F05032" d="M31.4 14.6 17.4.6a2 2 0 0 0-2.8 0l-2.9 2.9 3.7 3.7a2.4 2.4 0 0 1 3 3l3.5 3.6a2.4 2.4 0 1 1-1.4 1.4l-3.3-3.3v8.7a2.4 2.4 0 1 1-2 0v-8.8a2.4 2.4 0 0 1-1.3-3.1L10.3 5 .6 14.6a2 2 0 0 0 0 2.8l14 14a2 2 0 0 0 2.8 0l14-14a2 2 0 0 0 0-2.8z"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="mx-auto max-w-[1400px] px-6 pt-[3px] sm:px-10 lg:px-14">
+
+  <!-- ═══ თავსართი ═══ -->
+  <header class="pt-10">
+    <div class="flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-2">
+      <span>ლექციები · frontend</span>
+      <nav class="flex items-center gap-px bg-rule">
+        <a href="index.html" aria-current="page" class="bg-ink px-3 py-1.5 text-paper">პრეზენტაციები</a>
+        <a href="resources.html" class="bg-panel px-3 py-1.5 transition-colors hover:bg-ink hover:text-paper">რესურსები</a>
+      </nav>
+    </div>
+
+    <div class="mt-12 grid gap-10 border-b border-rule pb-10 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <p class="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-live"><span class="h-1.5 w-1.5 rounded-full bg-live"></span>არქივი</p>
+        <h1 class="display mt-4 text-5xl leading-[0.95] font-semibold sm:text-6xl lg:text-7xl">პრეზენტაციები</h1>
+        <div class="mt-8 h-px w-32 bg-live/40"></div>
+      </div>
+      <div class="flex flex-col justify-end lg:col-span-5">
+        <p class="max-w-md text-ink-2">
+          ლექციების სლაიდები — ყველა ღიაა და პირდაპირ ბრაუზერში მუშაობს.
+          თითოეული დეკი კლავიატურით იმართება: <kbd class="border border-rule bg-panel px-1.5 py-0.5 font-mono text-[11px]">→</kbd>
+          შემდეგი სლაიდი, <kbd class="border border-rule bg-panel px-1.5 py-0.5 font-mono text-[11px]">O</kbd> მიმოხილვა,
+          <kbd class="border border-rule bg-panel px-1.5 py-0.5 font-mono text-[11px]">?</kbd> დახმარება.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ ფილტრი + ძებნა ═══ -->
+  <section class="sticky top-0 z-40 -mx-6 mt-8 border-b border-rule bg-paper/95 px-6 py-4 backdrop-blur sm:-mx-10 sm:px-10 lg:-mx-14 lg:px-14">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div id="filters" class="flex flex-wrap items-center gap-2">
+        <button data-filter="all"     class="border px-3 py-1.5 font-mono text-[12px]">ყველა</button>
+        <button data-filter="html"    class="border px-3 py-1.5 font-mono text-[12px]">HTML &amp; CSS</button>
+        <button data-filter="js"      class="border px-3 py-1.5 font-mono text-[12px]">JavaScript</button>
+        <button data-filter="angular" class="border px-3 py-1.5 font-mono text-[12px]">Angular</button>
+      </div>
+      <label class="flex items-center gap-2 border border-rule bg-panel px-3 py-1.5 transition-colors focus-within:border-ink">
+        <svg viewBox="0 0 24 24" class="h-3.5 w-3.5 shrink-0 text-ink-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="ძებნა · დააჭირე /" autocomplete="off"
+               class="w-44 bg-transparent font-mono text-[12px] placeholder:text-ink-2/70 focus:outline-none sm:w-56" />
+      </label>
+    </div>
+  </section>
+
+  <!-- ═══ ბარათების ბადე ═══ -->
+  <section class="mt-8">
+    <div id="grid" class="grid gap-px border border-rule bg-rule sm:grid-cols-2 xl:grid-cols-3">
+
+      <!-- 01 ─ Tailwind CSS -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/tailwindCSS/#1" target="_blank" rel="noopener"
+         data-cat="html" data-keys="tailwind css utility html სტილი">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-tw"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">html &amp; css</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">Tailwind CSS</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">Utility-first მიდგომა — ლექცია, აწყობილი თავად Tailwind-ით.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 02 ─ JS: if / else -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/js-if-else/#1" target="_blank" rel="noopener"
+         data-cat="js" data-keys="javascript js if else პირობა condition">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-js"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">javascript</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">პირობები: if / else</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">პირობითი ოპერატორები: if, else if, else.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 03 ─ JS: ციკლები -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/js-loops/#1" target="_blank" rel="noopener"
+         data-cat="js" data-keys="javascript js loops ციკლი for while">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-js"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">javascript</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">ციკლები</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">for, while, do…while და გამეორების ლოგიკა.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 04 ─ Git -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/git/#1" target="_blank" rel="noopener"
+         data-cat="js" data-keys="git version control commit branch merge ვერსია">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-git"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">javascript</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">Git</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">ვერსიების კონტროლი: commit, branch, merge.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 05 ─ ავტორიზაცია JS-ში -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/js-auth/#1" target="_blank" rel="noopener"
+         data-cat="js" data-keys="javascript js auth ავტორიზაცია token login">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-js"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">javascript</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">ავტორიზაცია JS-ში</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">ავთენტიფიკაცია, ტოკენები და სესიის მართვა.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 06 ─ ასინქრონული JS -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/js-async/#1" target="_blank" rel="noopener"
+         data-cat="js" data-keys="javascript js async await promise ასინქრონული">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-js"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">javascript</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">ასინქრონული JS</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">Promise, async / await და event loop.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">ი</span>
+            <span class="text-[13px] text-ink-2 transition-colors group-hover:text-paper/70">ირაკლი ადამაშვილი</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 07 ─ Angular შესავალი -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/angular-intro/#1" target="_blank" rel="noopener"
+         data-cat="angular" data-keys="angular intro components შესავალი">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-ng"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">angular</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">Angular — შესავალი</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">კომპონენტები, შაბლონები და პროექტის სტრუქტურა.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">ი</span>
+            <span class="text-[13px] text-ink-2 transition-colors group-hover:text-paper/70">ირაკლი ადამაშვილი</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 08 ─ Services & DI -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://tumanishvilinikolozi.github.io/Services-DependencyInjection/#1" target="_blank" rel="noopener"
+         data-cat="angular" data-keys="angular services dependency injection di სერვისი">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-ng"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">angular</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">Services &amp; DI</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">სერვისები და Dependency Injection Angular-ში.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">ნ</span>
+            <span class="text-[13px] text-ink-2 transition-colors group-hover:text-paper/70">ნიკოლოზ თუმანიშვილი</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 09 ─ ავტორიზაცია Angular-ში -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/angular-auth/#1" target="_blank" rel="noopener"
+         data-cat="angular" data-keys="angular auth guard ავტორიზაცია route">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-ng"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">angular</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">ავტორიზაცია Angular-ში</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">ავთენტიფიკაცია, guard-ები და მარშრუტების დაცვა.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+    </div>
+
+    <p id="empty" class="mt-px hidden border border-rule bg-panel p-10 text-center text-ink-2">
+      ამ ფილტრით ვერაფერი მოიძებნა.
+    </p>
+  </section>
+
+  <!-- ═══ ბმული მეორე გვერდზე ═══ -->
+  <section class="mt-16">
+    <a href="resources.html" class="group grid items-center gap-6 border border-rule bg-panel p-8 transition-colors hover:bg-ink sm:grid-cols-[1fr_auto]">
+      <div>
+        <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-live transition-colors group-hover:text-box-c">შემდეგი გვერდი</p>
+        <h2 class="display mt-3 text-3xl font-semibold transition-colors group-hover:text-paper">რესურსები და სავარჯიშოები</h2>
+        <p class="mt-2 max-w-xl text-ink-2 transition-colors group-hover:text-paper/60">HTML შაბლონები, ფორმები და JS ლაბორატორია — ის, რაც სლაიდების შემდეგ ხელში უნდა აიღო.</p>
+      </div>
+      <span class="grid h-12 w-12 place-items-center border border-ink transition-colors group-hover:border-paper/30 group-hover:bg-paper/10">
+        <svg class="h-5 w-5 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+      </span>
+    </a>
+  </section>
+
+  <!-- ═══ ქვედა ზოლი ═══ -->
+  <footer class="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-rule py-5 font-mono text-[11px] uppercase tracking-[0.15em] text-ink-2">
+    <div class="flex items-center gap-4">
+      <span class="text-ink">პრეზენტაციები</span>
+      <span class="text-rule">/</span>
+      <span><span id="fCount">9</span> დეკი</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="resources.html" class="transition-colors hover:text-ink">რესურსები</a>
+      <span class="text-rule">·</span>
+      <a href="https://github.com/thothcher" target="_blank" rel="noopener" class="transition-colors hover:text-ink">github</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+(() => {
+  const grid    = document.getElementById('grid');
+  const cards   = [...grid.querySelectorAll('[data-cat]')];
+  const buttons = [...document.querySelectorAll('#filters [data-filter]')];
+  const q       = document.getElementById('q');
+  const empty   = document.getElementById('empty');
+  const count   = document.getElementById('fCount');
+
+  let cat = 'all';
+
+  // ფილტრის ღილაკები იმავე ვიზუალით, რაც სლაიდების lab-ღილაკებს აქვს.
+  const paint = () => buttons.forEach(b => {
+    const on = b.dataset.filter === cat;
+    b.className = 'border px-3 py-1.5 font-mono text-[12px] transition-colors ' +
+      (on ? 'border-ink bg-ink text-paper' : 'border-rule bg-panel text-ink hover:border-ink');
+  });
+
+  function apply() {
+    const term = q.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(c => {
+      const okCat = cat === 'all' || c.dataset.cat === cat;
+      const hay   = (c.dataset.keys + ' ' + c.textContent).toLowerCase();
+      const ok    = okCat && (!term || hay.includes(term));
+      c.classList.toggle('hidden', !ok);
+      if (ok) shown++;
+    });
+    empty.classList.toggle('hidden', shown > 0);
+    grid.classList.toggle('hidden', shown === 0);
+    count.textContent = shown;
+  }
+
+  buttons.forEach(b => b.onclick = () => { cat = b.dataset.filter; paint(); apply(); });
+  q.addEventListener('input', apply);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && e.target !== q) { e.preventDefault(); q.focus(); q.select(); }
+    else if (e.key === 'Escape' && e.target === q) { q.value = ''; q.blur(); apply(); }
+  });
+
+  // გადახვევის ინდიკატორი
+  const bar = document.getElementById('bar');
+  const scroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  };
+  addEventListener('scroll', scroll, { passive: true });
+  addEventListener('resize', scroll);
+
+  paint(); apply(); scroll();
+})();
+</script>
+</body>
+</html>
