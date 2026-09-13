@@ -1,0 +1,18 @@
+https://thothcher.github.io/triple-web/ -  html templates
+https://thothcher.github.io/html-forms/  - html forms
+
+
+prezentatinos
+html
+https://thothcher.github.io/tailwindCSS/#1
+
+js---
+https://thothcher.github.io/js-if-else/#1
+https://thothcher.github.io/js-loops/#1
+https://thothcher.github.io/git/#1
+
+angular--
+https://thothcher.github.io/angular-auth/#1
+
+other presentations--
+https://ani-jijiashvili-tbc-it-adacemy.github.io/JS-DOM/#1
