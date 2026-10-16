@@ -38,7 +38,7 @@
   },
   "mainEntity": {
     "@type": "ItemList",
-    "numberOfItems": 11,
+    "numberOfItems": 14,
     "itemListElement": [
       { "@type": "ListItem", "position": 1,  "name": "AI-Native Front-End — სილაბუსი",  "url": "https://thothcher.github.io/step-syllabus/" },
       { "@type": "ListItem", "position": 2,  "name": "Tailwind CSS",                     "url": "https://thothcher.github.io/tailwindCSS/" },
@@ -50,7 +50,10 @@
       { "@type": "ListItem", "position": 8,  "name": "Angular — შესავალი",               "url": "https://thothcher.github.io/angular-intro/" },
       { "@type": "ListItem", "position": 9,  "name": "Services & Dependency Injection",  "url": "https://tumanishvilinikolozi.github.io/Services-DependencyInjection/" },
       { "@type": "ListItem", "position": 10, "name": "ავტორიზაცია Angular-ში",           "url": "https://thothcher.github.io/angular-auth/" },
-      { "@type": "ListItem", "position": 11, "name": "შესავალი JavaScript & DOM",        "url": "https://ani-jijiashvili-tbc-it-adacemy.github.io/JS-DOM/" }
+      { "@type": "ListItem", "position": 11, "name": "შესავალი JavaScript & DOM",        "url": "https://ani-jijiashvili-tbc-it-adacemy.github.io/JS-DOM/" },
+      { "@type": "ListItem", "position": 12, "name": "HTML — დოკუმენტის სტრუქტურა",      "url": "https://thothcher.github.io/html-04-intro-html/" },
+      { "@type": "ListItem", "position": 13, "name": "სემანტიკური HTML & CSS",            "url": "https://thothcher.github.io/html-05-semantic-css/" },
+      { "@type": "ListItem", "position": 14, "name": "Sum-up Helper",                    "url": "https://thothcher.github.io/sumup-helper/" }
     ]
   }
 }
@@ -137,6 +140,15 @@
       <rect x="13" y="16.5" width="10.5" height="2.5" fill="#e7eae9"/>
       <rect x="8.5" y="22" width="2.5" height="2.5" fill="#f5c99b"/>
       <rect x="13" y="22" width="7" height="2.5" fill="#e7eae9"/>
+    </symbol>
+    <symbol id="i-html" viewBox="0 0 32 32">
+      <path fill="#E34F26" d="M5 2.5h22l-2 23-9 3.5-9-3.5z"/>
+      <path fill="#EF652A" d="M16 4.6v22.3l7.3-2.8 1.7-19.5z"/>
+      <path fill="#fff" d="M10.2 8.5h11.6l-.3 3H13.4l.2 3h7.7l-.7 8-4.6 1.5-4.6-1.5-.3-3.6h3l.1 1.8 1.8.6 1.8-.6.2-2.6h-7.2z"/>
+    </symbol>
+    <symbol id="i-sum" viewBox="0 0 32 32">
+      <rect x="3" y="3" width="26" height="26" fill="#1e33e0"/>
+      <path fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="square" d="M22 9H11l7 7-7 7h11"/>
     </symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"/>
@@ -418,6 +430,69 @@
         </div>
       </a>
 
+      <!-- 12 ─ HTML: დოკუმენტის სტრუქტურა -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/html-04-intro-html/" target="_blank" rel="noopener"
+         data-cat="html" data-keys="html intro document doctype head meta body შესავალი სტრუქტურა">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-html"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">html &amp; css</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">HTML — დოკუმენტის სტრუქტურა</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">HTML დოკუმენტის ანატომია: doctype, head, meta და body.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 13 ─ სემანტიკური HTML & CSS -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/html-05-semantic-css/" target="_blank" rel="noopener"
+         data-cat="html" data-keys="html semantic css სემანტიკა header main section article სტილი">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-html"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">html &amp; css</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">სემანტიკური HTML &amp; CSS</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">სემანტიკური ელემენტები და მათი სტილიზაცია CSS-ით.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
+      <!-- 14 ─ Sum-up Helper -->
+      <a class="card group flex flex-col bg-paper p-6 transition-colors hover:bg-ink focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-live"
+         href="https://thothcher.github.io/sumup-helper/" target="_blank" rel="noopener"
+         data-cat="js" data-keys="sumup sum-up helper შეჯამება javascript react next.js angular პრაქტიკა">
+        <div class="flex items-start justify-between gap-4">
+          <span class="grid h-16 w-16 shrink-0 place-items-center border border-rule bg-panel transition-colors group-hover:border-paper/25">
+            <svg class="h-8 w-8"><use href="#i-sum"/></svg>
+          </span>
+          <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-2 transition-colors group-hover:text-paper/50">javascript</span>
+        </div>
+        <h2 class="display mt-6 text-2xl leading-tight font-semibold transition-colors group-hover:text-paper">Sum-up Helper</h2>
+        <p class="mt-2 flex-1 text-[14px] leading-relaxed text-ink-2 transition-colors group-hover:text-paper/60">JavaScript, React, Next.js და Angular შეჯამებები ცოცხალი დემოებით.</p>
+        <div class="mt-6 flex items-center justify-between border-t border-rule pt-4 transition-colors group-hover:border-paper/15">
+          <span class="flex items-center gap-2.5">
+            <span class="grid h-6 w-6 shrink-0 place-items-center border border-rule font-mono text-[10px] text-ink-2 transition-colors group-hover:border-paper/25 group-hover:text-paper/60">T</span>
+            <span class="font-mono text-[11px] text-ink-2 transition-colors group-hover:text-paper/70">thothcher</span>
+          </span>
+          <svg class="h-4 w-4 text-ink-2 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-paper"><use href="#i-arrow"/></svg>
+        </div>
+      </a>
+
     </div>
 
     <p id="empty" class="mt-px hidden border border-rule bg-panel p-10 text-center text-ink-2">
@@ -444,7 +519,7 @@
     <div class="flex items-center gap-4">
       <span class="text-ink">პრეზენტაციები</span>
       <span class="text-rule">/</span>
-      <span><span id="fCount">11</span> დეკი</span>
+      <span><span id="fCount">14</span> დეკი</span>
     </div>
     <div class="flex items-center gap-4">
       <a href="resources.html" class="transition-colors hover:text-ink">რესურსები</a>
